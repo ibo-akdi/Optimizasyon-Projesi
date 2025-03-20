@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimizasyon Sonuçları</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='results.css') }}">
+    <style>
+        .content-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .map-container {
+            flex: 3; /* Haritalar daha geniş yer kaplasın */
+            margin-left: 20px; /* Haritalar için solda boşluk */
+            padding: 10px; /* İçerik çevresine boşluk eklenmesi */
+            border: 1px solid #ddd; /* Haritalar çevresinde ince bir çerçeve */
+            border-radius: 8px; /* Çerçeve köşeleri yuvarlak */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+            background-color: #f9f9f9; /* Hafif arka plan rengi */
+        }
+
+        .info-container {
+            flex: 1; /* Bilgilendirme kısmı daha dar */
+            padding: 10px; /* İçerik çevresine boşluk */
+            border: 1px solid #ddd; /* Bilgilendirme kısmı için çerçeve */
+            border-radius: 8px; /* Çerçeve köşeleri yuvarlak */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+            background-color: #f9f9f9; /* Hafif arka plan rengi */
+        }
+
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 8px; /* Haritaların köşeleri yuvarlak */
+        }
+
+        .container {
+            max-width: 1200px; /* Ana konteyner genişliği */
+            margin: auto; /* Ortalamak için */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center text-success">Optimizasyon Sonuçları</h1>
+
+        <div class="content-container mt-4">
+            <!-- Rota Haritaları -->
+            <div class="map-container">
+                <h3>Rota Haritaları</h3>
+                {% for map_url in route_maps %}
+                    <div class="mb-4">
+                        <iframe src="{{ map_url }}"></iframe>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Bilgilendirme -->
+            <div class="info-container">
+                <h3>Bilgilendirme</h3>
+                <ul class="list-group">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% set unique_messages = messages | unique %}
+                        {% for message in unique_messages %}
+                            <li class="list-group-item">{{ message }}</li>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{{ url_for('home') }}" class="btn btn-success">Ana Sayfa</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rota Optimizasyonu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+    <!-- Header Alanı -->
+    <header>
+        <img src="{{ url_for('static', filename='resim/logo.jpg') }}" alt="Logo" class="logo">
+        <h1>Müşteri Rota Optimizasyonu</h1>
+    </header>
+
+    <div class="container mt-5">
+        <h1 class="text-center">Rota Optimizasyonu</h1>
+        <form method="POST" action="{{ url_for('optimize') }}" enctype="multipart/form-data" class="mt-4">
+            <div class="form-group">
+                <label for="file">CSV Dosyasını Yükleyin:</label>
+                <input type="file" class="form-control-file" name="file" required>
+            </div>
+            <div class="form-group">
+                <label for="vehicle_capacity">Araç Kapasitesi:</label>
+                <input type="number" class="form-control" name="vehicle_capacity" placeholder="Örneğin: 100" required>
+            </div>
+            <div class="form-group">
+                <label for="max_cost">Maksimum Maliyet (TL):</label>
+                <input type="number" step="0.01" class="form-control" name="max_cost" placeholder="Örneğin: 10000" required>
+            </div>
+            <div class="form-group">
+                <label for="cost_per_km">Kilometre Başına Maliyet (TL):</label>
+                <input type="number" step="0.01" class="form-control" name="cost_per_km" placeholder="Örneğin: 5" required>
+            </div>
+            <h5>Yeni Müşteri Ekle (Opsiyonel)</h5>
+            <div class="form-group">
+                <label for="new_customer_lat">Enlem:</label>
+                <input type="number" step="0.000001" class="form-control" name="new_customer_lat" placeholder="Örneğin: 39.9208">
+            </div>
+            <div class="form-group">
+                <label for="new_customer_lon">Boylam:</label>
+                <input type="number" step="0.000001" class="form-control" name="new_customer_lon" placeholder="Örneğin: 32.8541">
+            </div>
+            <div class="form-group">
+                <label for="new_customer_demand">Malzeme Talebi:</label>
+                <input type="number" class="form-control" name="new_customer_demand" placeholder="Örneğin: 50">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Optimizasyonu Başlat</button>
+        </form>
+    </div>
+</body>
+</html>
